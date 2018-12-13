@@ -29,5 +29,5 @@ int	getmapsize(int terms)
 			i = 2;
 		}
 	}
-	return (i);
+	return (2 * i);
 }

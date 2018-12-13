@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chkfile.c                                       :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anorjen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "fillit.h"
 
-static int	ft_chkterm(char *buf)
+static int	ft_chktetr(char *buf)
 {
 	int	i;
 	int	counts;
@@ -54,7 +54,7 @@ static int	ft_chkfile(int fd, int *terms)
 		buf[20] = '\0';
 		if (buf[ret] != '\n' && buf[ret] != '\0')
 			return (-1);
-		if (ft_chkterm(buf) == -1)
+		if (ft_chktetr(buf) == -1)
 			return (-1);
 		*terms = *terms + 1;
 	}
@@ -64,42 +64,76 @@ static int	ft_chkfile(int fd, int *terms)
 		return (-1);
 }
 
-static int	ft_binterm(int fd, int *fig, int nterms)
+static void	ft_left(char *buf, char *shift)
 {
+	int		i;
+	int		j;
 	int		k;
+
+	i = 0;
+	k = 0;
+	j = -1;
+	while (buf[i] != '\0')
+	{
+		if (j != -1 && buf[i] == '#')
+		{
+			if (i - j < 0)
+				shift[k] = i - j + 1;
+			else if (i - j > 4)
+				shift[k] = i - j - 1;
+			else
+				shift[k] = i - j;
+			k++;
+		}
+		if (buf[i] == '#' && j == -1)
+			j = i;
+		if ((i + 1) / 5 == 3)
+			i = i % 5 + 1;
+		i = i + 5;
+	}
+}
+
+static void	ft_getshifts(int fd, char **tshift)
+{
+	int		ret;
 	char	buf[21];
 	int		i;
 
-	k = 0;
-	while (k++ < nterms)
+	ret = 1;
+	i = 0;
+	while (ret > 0)
 	{
-		ft_bzero(&fig[k], sizeof(int));
-		if (read(fd, buf, 21) <= 0)
-			return (-1);
+		if ((ret = read(fd, buf, 21)) <= 0)
+			break ;
 		buf[20] = '\0';
-		i = 0;
-		while (buf[i] != '\0')
-		{
-			fig[i] |= (buf[i] == '#');
-			if (buf[i] != '\n')
-				fig[i] = fig[i] << 1;
-		}
+		ft_left(buf, tshift[i]);
+		i++;
 	}
-	return (1);
 }
 
-int			validation(int fd, int *fig)
+int			validation(char *file, char **tshift, int *ntetr)
 {
-	int	nterms;
 	int	i;
+	int	fd;
 
-	if (ft_chkfile(fd, &nterms) == -1)
+	if ((fd = open(file, O_RDONLY)) <= 0)
 		return (-1);
-	if ((fig = (int *)malloc(sizeof(int) * nterms)) == NULL)
+	if (ft_chkfile(fd, ntetr) == -1)
 		return (-1);
-	ft_bzero(fig, sizeof(int) * nterms);
+	if ((tshift = (char **)malloc(sizeof(char *) * *ntetr)) == NULL)
+		return (-1);
 	i = 0;
-	if (ft_binterm(fd, fig, nterms) == -1)
-		return (-1);
+	while (i < *ntetr)
+	{
+		if ((tshift[i] = (char *)malloc(sizeof(char))) == NULL)
+		{
+			while (--i)
+				free(tshift[i]);
+			free(tshift);
+			return (-1);
+		}
+	}
+	ft_getshifts(fd, tshift);
+	close(fd);
 	return (1);
 }
