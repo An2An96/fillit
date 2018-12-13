@@ -77,12 +77,12 @@ static void	ft_left(char *buf, char *shift)
 	{
 		if (j != -1 && buf[i] == '#')
 		{
-			if (i - j < 0)
-				shift[k] = i - j + 1;
-			else if (i - j > 4)
-				shift[k] = i - j - 1;
-			else
-				shift[k] = i - j;
+			//~ if (i - j < 0)
+				//~ shift[k] = (char)(i - j + 1);
+			//~ else if (i - j > 4)
+				//~ shift[k] = (char)(i - j - 1);
+			//~ else
+			shift[k] = (char)(i - j);
 			k++;
 		}
 		if (buf[i] == '#' && j == -1)
