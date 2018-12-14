@@ -52,12 +52,13 @@ static int	ft_chkfile(int fd, int *terms)
 		if (ret < 20 && ret > 0)
 			return (-1);
 		buf[20] = '\0';
-		if (buf[ret] != '\n' && buf[ret] != '\0')
+		if (buf[ret - 1] != '\n' && buf[ret - 1] != '\0')
 			return (-1);
 		if (ft_chktetr(buf) == -1)
 			return (-1);
 		*terms = *terms + 1;
 	}
+	close(fd);
 	if (*terms > 0)
 		return (1);
 	else
@@ -77,11 +78,6 @@ static void	ft_left(char *buf, char *shift)
 	{
 		if (j != -1 && buf[i] == '#')
 		{
-			//~ if (i - j < 0)
-				//~ shift[k] = (char)(i - j + 1);
-			//~ else if (i - j > 4)
-				//~ shift[k] = (char)(i - j - 1);
-			//~ else
 			shift[k] = (char)(i - j);
 			k++;
 		}
@@ -111,7 +107,7 @@ static void	ft_getshifts(int fd, char **tshift)
 	}
 }
 
-int			validation(char *file, char **tshift, int *ntetr)
+int			validation(char *file, t_figures *tetrs, int *ntetr)
 {
 	int	i;
 	int	fd;
@@ -120,20 +116,22 @@ int			validation(char *file, char **tshift, int *ntetr)
 		return (-1);
 	if (ft_chkfile(fd, ntetr) == -1)
 		return (-1);
-	if ((tshift = (char **)malloc(sizeof(char *) * *ntetr)) == NULL)
+	if ((tetrs->figures = (char **)malloc(sizeof(char *) * *ntetr)) == NULL)
 		return (-1);
 	i = 0;
-	while (i < *ntetr)
+	while (i++ < *ntetr)
 	{
-		if ((tshift[i] = (char *)malloc(sizeof(char))) == NULL)
+		if ((tetrs->figures[i] = (char *)malloc(sizeof(char))) == NULL)
 		{
 			while (--i)
-				free(tshift[i]);
-			free(tshift);
+				free(tetrs->figures[i]);
+			free(tetrs->figures);
 			return (-1);
 		}
 	}
-	ft_getshifts(fd, tshift);
+	if ((fd = open(file, O_RDONLY)) <= 0)
+		return (-1);
+	ft_getshifts(fd, tetrs->figures);
 	close(fd);
 	return (1);
 }
