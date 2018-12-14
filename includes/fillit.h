@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:09:34 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/13 14:36:23 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/14 14:20:07 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,19 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+typedef struct	s_fillit_map
+{
+	char *field;
+	unsigned char field_size;
+}				t_fillit_map;
+
+typedef struct	s_figures
+{
+	char			**figures;
+	unsigned char	count;
+}				t_figures;
+
 int		validation(int fd, int *fig);
-void	find_result(char *result_map, char *tmp_map, int *figures, int figures_used);
+int		find_result(char *map, int map_size, t_figures *figures, int figures_used);
 
 #endif
