@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:09:34 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/14 14:43:35 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/15 13:26:55 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_figures
 	unsigned char	count;
 }				t_figures;
 
-int		validation(char *file, char **tshift, int *ntetr);
-int		find_result(char *map, int map_size, t_figures *figures, int figures_used);
+int		validation(char *file, t_figures *tetrs, int *ntetr);
+int		find_result(char **map, int map_size, t_figures *figures, int figures_used);
 
 #endif
