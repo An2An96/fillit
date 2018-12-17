@@ -9,7 +9,7 @@
 /*   Updated: 2018/12/14 14:51:26 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <stdio.h>
 #include "fillit.h"
 
 static void	ft_left(char *buf, char *shift)
@@ -17,18 +17,23 @@ static void	ft_left(char *buf, char *shift)
 	int		i;
 	int		j;
 	int		k;
+	int		sh;
 
 	i = 0;
 	k = 0;
 	j = -1;
-	while ((i + 1) % 5)
+	sh = 0;
+	while (i != 18)
 	{
 		if (j != -1 && buf[i] == '#')
 		{
 			shift[k] = (char)(i - j);
 			if (shift[k] < 0 && shift[k] / 4 == 0)
-				shift[k] = -1;
-			shift[k] = shift[k] - shift[k] / 4;
+				sh = -1;
+			else
+				sh = shift[k] / 4;
+			shift[k] = shift[k] - sh;
+			printf("%d\n", (int)shift[k]);
 			k++;
 		}
 		if (buf[i] == '#' && j == -1)
