@@ -89,19 +89,6 @@ int			validation(char *file, t_figures *tetrs, int *mapsize)
 		return (0);
 	if (ft_getmem(tetrs, ntetr) != 1)
 		return (0);
-	// if ((tetrs->figures = (char **)malloc(sizeof(char *) * ntetr)) == NULL)
-	// 	return (0);
-	// i = -1;
-	// while (++i < ntetr)
-	// {
-	// 	if ((tetrs->figures[i] = (char *)malloc(sizeof(char) * 3)) == NULL)
-	// 	{
-	// 		while (--i)
-	// 			free(tetrs->figures[i]);
-	// 		free(tetrs->figures);
-	// 		return (0);
-	// 	}
-	// }
 	if ((fd = open(file, O_RDONLY)) <= 0)
 		return (0);
 	ft_getshifts(fd, tetrs->figures);

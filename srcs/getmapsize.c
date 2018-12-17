@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getmapsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anorjen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:56:05 by anorjen           #+#    #+#             */
-/*   Updated: 2018/12/10 14:56:05 by anorjen          ###   ########.fr       */
+/*   Updated: 2018/12/17 18:02:17 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	getmapsize(int terms)
 
 	i = 2;
 	if (terms == 1)
-		return (1);
+		return (2);
 	while (i * i != terms)
 	{
 		if (i < terms / 2)
