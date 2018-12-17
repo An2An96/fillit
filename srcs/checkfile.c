@@ -73,8 +73,6 @@ int			checkfile(int fd, int *terms)
 	*terms = 0;
 	while ((ret = read(fd, buf, 21)) > 0)
 	{
-		// if ((ret = read(fd, buf, 21)) <= 0)
-		// 	break ;
 		if (ret < 19 && ret > 0)
 			return (-1);
 		buf[19] = '\0';

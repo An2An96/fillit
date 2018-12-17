@@ -25,10 +25,16 @@ typedef struct	s_figures
 	unsigned char	count;
 }				t_figures;
 
+int		checkfile(int fd, int *terms);
 int		validation(char *file, t_figures *tetrs, int *ntetr);
+<<<<<<< Updated upstream
 int		checkfile(int fd, int *terms);
 int		getmapsize(int terms);
 int		find_result(
 	char **map, int map_size, t_figures *figures, long long figures_used);
+=======
+int		find_result(char **map, int map_size, t_figures *figures, int figures_used);
+int		getmapsize(int terms);
+>>>>>>> Stashed changes
 
 #endif
