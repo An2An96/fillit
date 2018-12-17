@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:09:34 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/17 13:04:36 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/17 14:07:31 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_figures
 }				t_figures;
 
 int		validation(char *file, t_figures *tetrs, int *ntetr);
-int		find_result(char **map, int map_size, t_figures *figures, int figures_used);
+int		find_result(
+	char **map, int map_size, t_figures *figures, long long figures_used);
 
 #endif
