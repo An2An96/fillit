@@ -23,7 +23,7 @@ static void	ft_left(char *buf, char *shift)
 	k = 0;
 	j = -1;
 	sh = 0;
-	while (i != 18)
+	while ((i + 1) % 5 != 0)
 	{
 		if (j != -1 && buf[i] == '#')
 		{
