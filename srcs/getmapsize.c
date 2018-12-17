@@ -17,7 +17,7 @@ int	getmapsize(int terms)
 	int	i;
 
 	i = 2;
-	if (term = 1)
+	if (terms == 1)
 		return (1);
 	while (i * i != terms)
 	{

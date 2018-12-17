@@ -106,6 +106,9 @@ static void	ft_left(char *buf, char *shift)
 		if (j != -1 && buf[i] == '#')
 		{
 			shift[k] = (char)(i - j);
+			if (shift[k] < 0 && shift[k] / 4 == 0)
+				shift[k] = -1;
+			shift[k] = shift[k] - shift[k] / 4;
 			k++;
 		}
 		if (buf[i] == '#' && j == -1)
@@ -137,19 +140,20 @@ static void	ft_getshifts(int fd, char **tshift)
 	}
 }
 
-int			validation(char *file, t_figures *tetrs, int *ntetr)
+int			validation(char *file, t_figures *tetrs, int *mapsize)
 {
 	int	i;
 	int	fd;
+	int ntetr;
 
 	if ((fd = open(file, O_RDONLY)) <= 0)
 		return (0);
-	if (checkfile(fd, ntetr) == 0)
+	if (checkfile(fd, &ntetr) == 0)
 		return (0);
-	if ((tetrs->figures = (char **)malloc(sizeof(char *) * *ntetr)) == NULL)
+	if ((tetrs->figures = (char **)malloc(sizeof(char *) * ntetr)) == NULL)
 		return (0);
 	i = -1;
-	while (++i < *ntetr)
+	while (++i < ntetr)
 	{
 		if ((tetrs->figures[i] = (char *)malloc(sizeof(char) * 3)) == NULL)
 		{
@@ -163,5 +167,7 @@ int			validation(char *file, t_figures *tetrs, int *ntetr)
 		return (0);
 	ft_getshifts(fd, tetrs->figures);
 	close(fd);
+	tetrs->count = ntetr;
+	*mapsize = getmapsize(ntetr);
 	return (1);
 }
