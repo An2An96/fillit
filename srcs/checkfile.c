@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   checkfile.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:56:05 by anorjen           #+#    #+#             */
-/*   Updated: 2018/12/14 14:51:26 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/17 18:03:07 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ int			checkfile(int fd, int *terms)
 	{
 		// if ((ret = read(fd, buf, 21)) <= 0)
 		// 	break ;
-		if (ret < 19 && ret > 0)
-			return (-1);
+		if (ret < 19)
+			return (0);
 		buf[19] = '\0';
 		if (ret != 19 && buf[ret - 1] != '\n' && buf[ret - 1] != '\0')
-			return (-1);
+			return (0);
 		if (ft_chktetr(buf) == 0)
 			return (0);
 		*terms = *terms + 1;
