@@ -51,7 +51,7 @@ static int	ft_chktetr(char *buf)
 	i = -1;
 	while (buf[++i] != '\0')
 	{
-		if ((buf[i] != '.' && buf[i] != '#' && buf[i] != '\n')
+		if ((buf[i] != '.' && buf[i] != '#' && buf[i] != '\n' && buf[i] != '\0')
 			|| ((i + 1) % 5 == 0 && buf[i] != '\n')
 			|| i > 20 || counts > 4)
 			return (0);
@@ -71,14 +71,14 @@ int			checkfile(int fd, int *terms)
 	ret = 1;
 	counts = 0;
 	*terms = 0;
-	while (ret > 0)
+	while ((ret = read(fd, buf, 21)) > 0)
 	{
-		if ((ret = read(fd, buf, 21)) <= 0)
-			break ;
-		if (ret < 20 && ret > 0)
+		// if ((ret = read(fd, buf, 21)) <= 0)
+		// 	break ;
+		if (ret < 19 && ret > 0)
 			return (-1);
-		buf[20] = '\0';
-		if (buf[ret - 1] != '\n' && buf[ret - 1] != '\0')
+		buf[19] = '\0';
+		if (ret != 19 && buf[ret - 1] != '\n' && buf[ret - 1] != '\0')
 			return (-1);
 		if (ft_chktetr(buf) == 0)
 			return (0);

@@ -101,7 +101,7 @@ static void	ft_left(char *buf, char *shift)
 	i = 0;
 	k = 0;
 	j = -1;
-	while (buf[i] != '\0')
+	while ((i + 1) % 5)
 	{
 		if (j != -1 && buf[i] == '#')
 		{
@@ -112,7 +112,10 @@ static void	ft_left(char *buf, char *shift)
 			j = i;
 		if ((i + 1) / 5 == 3)
 			i = i % 5 + 1;
-		i = i + 5;
+		else
+			i = i + 5;
+		// if (i == 18)
+		// 	break ;
 	}
 }
 
@@ -128,7 +131,7 @@ static void	ft_getshifts(int fd, char **tshift)
 	{
 		if ((ret = read(fd, buf, 21)) <= 0)
 			break ;
-		buf[20] = '\0';
+		buf[19] = '\0';
 		ft_left(buf, tshift[i]);
 		i++;
 	}
@@ -141,14 +144,14 @@ int			validation(char *file, t_figures *tetrs, int *ntetr)
 
 	if ((fd = open(file, O_RDONLY)) <= 0)
 		return (0);
-	if (checkfile(fd, ntetr) == -1)
+	if (checkfile(fd, ntetr) == 0)
 		return (0);
 	if ((tetrs->figures = (char **)malloc(sizeof(char *) * *ntetr)) == NULL)
 		return (0);
-	i = 0;
-	while (i++ < *ntetr)
+	i = -1;
+	while (++i < *ntetr)
 	{
-		if ((tetrs->figures[i] = (char *)malloc(sizeof(char))) == NULL)
+		if ((tetrs->figures[i] = (char *)malloc(sizeof(char) * 3)) == NULL)
 		{
 			while (--i)
 				free(tetrs->figures[i]);
