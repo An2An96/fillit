@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:35:06 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/17 18:06:53 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/17 18:27:38 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	show_result(char *map, int map_size)
 	}
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_figures	figures;
 	char		*map;
@@ -41,11 +41,8 @@ int	main(int argc, char **argv)
 	{
 		if (validation(argv[1], &figures, &map_size) > 0)
 		{
-			// for (int j = 0; j < figures.count; j++)
-			// {
-			// 	printf("[ %d, %d, %d ]", figures.figures[j][0], figures.figures[j][1], figures.figures[j][2]);
-			// }
-			
+			for (int j = 0; j < figures.count; j++)
+				printf("[ %d, %d, %d ]", figures.figures[j][0], figures.figures[j][1], figures.figures[j][2]);
 			map = ft_strnew(map_size * map_size);
 			ft_memset(map, '.', map_size * map_size);
 			while ((res = find_result(&map, map_size, &figures, 0)) == 0)
