@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:09:34 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/15 13:26:55 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/17 13:04:36 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
-
-typedef struct	s_fillit_map
-{
-	char *field;
-	unsigned char field_size;
-}				t_fillit_map;
 
 typedef struct	s_figures
 {

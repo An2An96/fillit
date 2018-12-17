@@ -6,39 +6,11 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 14:16:36 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/15 13:38:33 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/17 13:04:05 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-// int my_min(int result, void *el)
-// {
-// 	return (result > *((char*)el) ? *((char*)el) : result);
-// }
-
-// int my_max(int result, void *el)
-// {
-// 	return (result > *((char*)el) ? *((char*)el) : result);
-// }
-
-// int	ft_reduce(void *arr, size_t type_size, size_t n, int (*f)(int, void *))
-// {
-// 	int result;
-// 	size_t i;
-
-// 	result = 0;
-// 	if (arr)
-// 	{
-// 		i = 0;
-// 		while (i < n)
-// 		{
-// 			result = f(result, (arr + i * type_size));
-// 			i++;
-// 		}
-// 	}
-// 	return (result);
-// }
 
 int	check_figure_to_map(char *map, int map_size, int pos, char *figure)
 {
@@ -87,9 +59,9 @@ int	find_result(char **map, int map_size, t_figures *figures, int figures_used)
 	char *map_copy;
 
 	cur_figure = 0;
-	// while ((figures_used >> cur_figure) & 1)
-	// 	if (++cur_figure >= figures->count)
-	// 		return (1);
+	while ((figures_used >> cur_figure) & 1)
+		if (++cur_figure >= figures->count)
+			return (1);
 
 	while (cur_figure < figures->count)	//	перебираем все фигуры
 	{

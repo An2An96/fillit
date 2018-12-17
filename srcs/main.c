@@ -6,13 +6,26 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:35:06 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/15 13:36:46 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/17 13:03:42 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <limits.h>
 #include <stdio.h>
+
+void	show_result(char *map)
+{
+	int i;
+
+	i = 0;
+	while (map[i])
+	{
+		ft_putchar(map[i]);
+		if (++i % 4 == 0)
+			ft_putchar('\n');
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -46,25 +59,25 @@ int	main(int argc, char **argv)
 			#...
 			#...
 		*/
-		figures.figures[1] = (char*)malloc(3 * sizeof(char));
-		figures.figures[1][0] = 4;
-		figures.figures[1][1] = 8;
-		figures.figures[1][2] = 12;
+		figures.figures[2] = (char*)malloc(3 * sizeof(char));
+		figures.figures[2][0] = 4;
+		figures.figures[2][1] = 8;
+		figures.figures[2][2] = 12;
 		/*
 			##..
 			.#..
 			.#..
 			....
 		*/
-		figures.figures[2] = (char*)malloc(3 * sizeof(char));
-		figures.figures[2][0] = 1;
-		figures.figures[2][1] = 5;
-		figures.figures[2][2] = 9;
+		figures.figures[1] = (char*)malloc(3 * sizeof(char));
+		figures.figures[1][0] = 1;
+		figures.figures[1][1] = 5;
+		figures.figures[1][2] = 9;
 
 		figures.count = 3;
 
 		find_result(&map, map_size, &figures, 0);
-		printf("%s", map);
+		show_result(map);
 	}
 	return (0);
 }
