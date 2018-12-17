@@ -9,7 +9,9 @@ LIBS_DIR = ./libs
 
 SRCS =	main.c \
 		calculate.c \
-		validation.c
+		validation.c \
+		checkfile.c \
+		getmapsize.c
 
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRCS:%.c=%.o))
 
