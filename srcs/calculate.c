@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 14:16:36 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/17 13:04:05 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/17 13:31:53 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	check_figure_to_map(char *map, int map_size, int pos, char *figure)
 	{
 		point[0] = start[0] + ABS(figure[i] % map_size);
 		point[1] = start[1] + (figure[i] / map_size);
+		if (figure[i] < 0)
+			point[1]--;
 		if (point[0] < 0 || point[0] >= map_size
 			|| point[1] < 0 || point[1] >= map_size
 			|| map[(point[0] + point[1] * map_size)] != '.')
