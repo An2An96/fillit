@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:09:34 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/18 12:04:37 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 15:47:27 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+typedef struct	s_map
+{
+	char	*map;
+	int		size;
+}				t_map;
+
 typedef struct	s_figures
 {
 	char			**figures;
@@ -30,7 +36,6 @@ int		checkfile(int fd, int *terms);
 int		validation(char *file, t_figures *tetrs, int *ntetr);
 int		checkfile(int fd, int *terms);
 int		getmapsize(int terms);
-int		find_result(
-	char **map, int map_size, t_figures *figures, long long figures_used);
+int		find_result(t_map **map, t_figures *figures, long long figures_used);
 
 #endif
