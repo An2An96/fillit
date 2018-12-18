@@ -12,13 +12,12 @@ SRCS =	main.c \
 		calculate.c \
 		validation.c \
 		checkfile.c \
-		getmapsize.c
+		additional.c
 
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRCS:%.c=%.o))
 
 all:
 	@mkdir -p $(OBJ_DIR)
-	@$(MAKE) -C $(LIBS_DIR)/libft
 	@$(MAKE) $(NAME)
 
 $(NAME): $(OBJ)

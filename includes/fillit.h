@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:09:34 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/18 18:19:05 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 21:10:46 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ typedef struct	s_figures
 
 int		checkfile(int fd, int *terms);
 int		validation(char *file, t_figures *tetrs, int *ntetr);
-int		checkfile(int fd, int *terms);
+void	resize_shifts(t_figures *figures, int old_size, int new_size);
 int		getmapsize(int terms);
 int		find_result(t_map *map, t_figures *figures, long long figures_used);
+void	show_result(int result, const t_map *map);
 
 #endif

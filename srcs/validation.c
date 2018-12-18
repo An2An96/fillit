@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:56:05 by anorjen           #+#    #+#             */
-/*   Updated: 2018/12/18 13:21:40 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 21:05:15 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,7 @@ int			validation(char *file, t_figures *tetrs, int *mapsize)
 	close(fd);
 	tetrs->count = ntetr;
 	*mapsize = getmapsize(ntetr);
+	if (*mapsize != 4)
+		resize_shifts(tetrs, 4, *mapsize);
 	return (1);
 }
