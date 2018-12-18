@@ -17,22 +17,19 @@ static void	ft_left(char *buf, char *shift)
 	int		i;
 	int		j;
 	int		k;
-	int		sh;
 
 	i = 0;
 	k = 0;
 	j = -1;
-	sh = 0;
 	while ((i + 1) % 5 != 0)
 	{
 		if (j != -1 && buf[i] == '#')
 		{
 			shift[k] = (char)(i - j);
 			if (shift[k] < 0 && shift[k] / 4 == 0)
-				sh = -1;
+				shift[k] = shift[k] + 1;
 			else
-				sh = shift[k] / 4;
-			shift[k] = shift[k] - sh;
+				shift[k] = shift[k] - shift[k] / 4;
 			k++;
 		}
 		if (buf[i] == '#' && j == -1)

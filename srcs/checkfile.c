@@ -86,7 +86,6 @@ int			checkfile(int fd, int *terms)
 		*terms = *terms + 1;
 		ret_prev = ret;
 	}
-
 	if (*terms > 0 && *terms <= 26 && ret_prev == 20)
 		return (1);
 	else
