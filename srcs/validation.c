@@ -33,7 +33,6 @@ static void	ft_left(char *buf, char *shift)
 			else
 				sh = shift[k] / 4;
 			shift[k] = shift[k] - sh;
-			// printf("%d\n", (int)shift[k]);
 			k++;
 		}
 		if (buf[i] == '#' && j == -1)
@@ -91,7 +90,11 @@ int			validation(char *file, t_figures *tetrs, int *mapsize)
 	if ((fd = open(file, O_RDONLY)) <= 0)
 		return (0);
 	if (checkfile(fd, &ntetr) == 0)
+	{
+		close(fd);
 		return (0);
+	}
+	close(fd);
 	if (ft_getmem(tetrs, ntetr) != 1)
 		return (0);
 	if ((fd = open(file, O_RDONLY)) <= 0)
