@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:35:06 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/18 15:47:40 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 18:19:45 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		main(int argc, char **argv)
 			// 	printf("[ %d, %d, %d ]", figures.figures[j][0], figures.figures[j][1], figures.figures[j][2]);
 			map->map = ft_strnew(map->size * map->size);
 			ft_memset(map->map, '.', map->size * map->size);
-			while ((res = find_result(&map, &figures, 0)) == 0)
+			while ((res = find_result(map, &figures, 0)) == 0)
 			{
 				map->size++;
 				free(map->map);

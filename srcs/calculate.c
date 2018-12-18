@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 14:16:36 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/18 16:48:32 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 19:03:01 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,29 @@ static int		check_figure_to_map(const t_map *map, int pos, char *figure)
 	int i;
 	int start[2];
 	int point[2];
+	int result_shift;
+	int tmp;
 
 	start[0] = pos % map->size;
 	start[1] = pos / map->size;
 	i = 0;
+	result_shift = 0;
 	while (i < 3)
 	{
+		tmp = 0;
 		point[0] = start[0] + (figure[i] % 4) + (4 * (figure[i] < 0));
 		point[1] = start[1] + (figure[i] / 4) - (figure[i] < 0);
-		if (point[0] < 0 || point[0] >= map->size
-			|| point[1] < 0 || point[1] >= map->size
-			|| map->map[(point[0] + point[1] * map->size)] != '.')
-			return (0);
+		if (point[0] < 0 || point[1] >= map->size)
+			return (-1);
+		if (point[1] < 0 || point[0] >= map->size)
+			tmp = (start[1] - (point[1] < 0 ? point[1] : -1)) * map->size - pos;
+		if (!tmp && map->map[(point[0] + point[1] * map->size)] != '.')
+			return (1);
+		if (tmp > result_shift)
+			result_shift = tmp;
 		i++;
 	}
-	return (1);
+	return (result_shift);
 }
 
 static void		set_figure(t_map *map, int pos, char *figure, char ch)
@@ -47,39 +55,9 @@ static void		set_figure(t_map *map, int pos, char *figure, char ch)
 	map->map[pos + shift] = ch;
 }
 
-static t_map	*copy_map(t_map *map)
+int				find_result(t_map *map, t_figures *data, long long used)
 {
-	t_map	*new;
-	char	*buf;
-
-	new = NULL;
-	if (map)
-	{
-		new = (t_map*)malloc(sizeof(t_map));
-		if (!new)
-			exit(1);
-		if ((new->map = ft_strdup(map->map)))
-			new->size = map->size;
-		else
-			ft_memdel((void**)(&new));
-	}
-	return (new);
-}
-
-static int		handle_result(int result, t_map **map, t_map *map_copy)
-{
-	if (result > 0)
-	{
-		free(*map);
-		*map = map_copy;
-	}
-	else
-		free(map_copy);
-	return (result);
-}
-
-int				find_result(t_map **map, t_figures *data, long long used)
-{
+	int		res;
 	int		pos;
 	int		cur_tet;
 	t_map	*map_c;
@@ -92,16 +70,23 @@ int				find_result(t_map **map, t_figures *data, long long used)
 		if (((used >> cur_tet) & 1) != 0)
 			continue;
 		pos = -1;
-		while (++pos < ((*map)->size * (*map)->size))
+		while (++pos < (map->size * map->size))
 		{
-			if ((*map)->map[pos] != '.'
-			|| !check_figure_to_map(*map, pos, data->figures[cur_tet]))
+			if (map->map[pos] != '.')
 				continue;
-			map_c = copy_map(*map);
-			set_figure(map_c, pos, data->figures[cur_tet], ('A' + cur_tet));
-			if (handle_result(find_result(&map_c, data,
-				used | (1 << cur_tet)), map, map_c))
+			if ((res = check_figure_to_map(map, pos, data->figures[cur_tet])))
+			{
+				if (res > 0)
+				{
+					pos += res - 1;
+					continue;
+				}
+				break ;
+			}
+			set_figure(map, pos, data->figures[cur_tet], ('A' + cur_tet));
+			if (find_result(map, data, used | (1 << cur_tet)))
 				return (1);
+			set_figure(map, pos, data->figures[cur_tet], '.');
 		}
 	}
 	return (0);
