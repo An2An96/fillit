@@ -6,10 +6,10 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:56:05 by anorjen           #+#    #+#             */
-/*   Updated: 2018/12/14 14:51:26 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 13:21:40 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "fillit.h"
 
 static void	ft_left(char *buf, char *shift)
@@ -33,7 +33,7 @@ static void	ft_left(char *buf, char *shift)
 			else
 				sh = shift[k] / 4;
 			shift[k] = shift[k] - sh;
-			printf("%d\n", (int)shift[k]);
+			// printf("%d\n", (int)shift[k]);
 			k++;
 		}
 		if (buf[i] == '#' && j == -1)

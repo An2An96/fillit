@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 14:56:05 by anorjen           #+#    #+#             */
-/*   Updated: 2018/12/17 18:03:07 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 13:45:53 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	ft_chktetr(char *buf)
 		if (buf[i] == '#')
 			counts++;
 	}
+	if (counts < 4)
+		return (0);
 	s = ft_ccount(buf);
 	return (s);
 }

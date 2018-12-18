@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:09:34 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/17 17:36:57 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 12:04:37 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FILLIT_H
 
 # include "libft.h"
+# include <stdio.h>
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>

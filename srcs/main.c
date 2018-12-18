@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:35:06 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/17 18:27:38 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/18 14:00:01 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,29 @@ void	show_result(char *map, int map_size)
 	}
 }
 
+// void	resize_shifts(t_figures *figures, int map_size)
+// {
+// 	int i;
+// 	int j;
+// 	char *figure;
+
+// 	i = 0;
+// 	while (i < figures->count)
+// 	{
+// 		j = 0;
+// 		while (j < 3)
+// 		{
+// 			figure = figures->figures[i][j];
+// 			if (*figure < 0)
+// 				*figure += (map_size - 4) * ((*figure / map_size - 1) - 1);
+// 			else
+// 				*figure += (map_size - 4) * (*figure / map_size - 1);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
+
 int		main(int argc, char **argv)
 {
 	t_figures	figures;
@@ -41,8 +64,8 @@ int		main(int argc, char **argv)
 	{
 		if (validation(argv[1], &figures, &map_size) > 0)
 		{
-			for (int j = 0; j < figures.count; j++)
-				printf("[ %d, %d, %d ]", figures.figures[j][0], figures.figures[j][1], figures.figures[j][2]);
+			// for (int j = 0; j < figures.count; j++)
+			// 	printf("[ %d, %d, %d ]", figures.figures[j][0], figures.figures[j][1], figures.figures[j][2]);
 			map = ft_strnew(map_size * map_size);
 			ft_memset(map, '.', map_size * map_size);
 			while ((res = find_result(&map, map_size, &figures, 0)) == 0)
@@ -51,6 +74,7 @@ int		main(int argc, char **argv)
 				free(map);
 				map = ft_strnew(map_size * map_size);
 				ft_memset(map, '.', map_size * map_size);
+				// resize_shifts(&figures, map_size);
 			}
 		}
 	}
