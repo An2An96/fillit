@@ -6,12 +6,11 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:35:06 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/19 14:04:47 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/19 14:08:11 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 int		main(int argc, char **argv)
 {

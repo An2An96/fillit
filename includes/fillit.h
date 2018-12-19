@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 14:09:34 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/19 14:01:16 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/19 14:08:52 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 # define FILLIT_H
 
 # include "libft.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <string.h>
-# include <stdlib.h>
 # include <fcntl.h>
 
 typedef struct	s_map
