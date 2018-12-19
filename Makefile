@@ -16,6 +16,7 @@ SRCS =	main.c \
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRCS:%.c=%.o))
 
 all:
+	@$(MAKE) -C $(LIBS_DIR)/libft
 	@mkdir -p $(OBJ_DIR)
 	@$(MAKE) $(NAME)
 
