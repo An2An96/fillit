@@ -1,6 +1,6 @@
 NAME = fillit
 
-FLAGS = -g -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror
 
 SRCS_DIR = ./srcs
 INC_DIR = ./includes
