@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 14:16:36 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/19 14:10:29 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/19 14:24:34 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int				fillit(char *filename)
 	t_map		map;
 	int			res;
 
+	res = 0;
 	if (filename)
 	{
 		if (validation(filename, &figures, &(map.size)) > 0)
