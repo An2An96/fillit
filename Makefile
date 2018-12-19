@@ -29,10 +29,12 @@ $(OBJ_DIR)/%.o: $(SRCS_DIR)/%.c
 	@echo "Compile object files"
 
 clean:
+	@$(MAKE) clean -C $(LIBS_DIR)/libft
 	@rm -rf $(OBJ_DIR)
 	@echo "Clean object files"
 
 fclean: clean
+	@$(MAKE) fclean -C $(LIBS_DIR)/libft
 	@rm -f $(NAME)
 	@echo "Clean build"
 
