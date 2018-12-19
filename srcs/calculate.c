@@ -6,7 +6,7 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 14:16:36 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/19 14:08:14 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/19 14:10:29 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,8 @@ int				fillit(char *filename)
 				resize_shifts(&figures, map.size - 1, map.size);
 			}
 			if (res)
-			{
 				show_result(&map);
-				return (1);
-			}
 		}
 	}
-	return (0);
+	return (res == 1);
 }
