@@ -6,48 +6,47 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/14 14:16:36 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/18 21:10:14 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/19 14:03:21 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int		check_figure_to_map(const t_map *map, int pos, char *tetr)
+static int		check_tetr_to_map(const t_map *map, int *pos, char *tetr)
 {
 	int i;
 	int s[2];
-	int point[2];
-	int result_shift;
-	int tmp;
+	int p[2];
+	int shift[2];
 
-	s[0] = pos % map->size;
-	s[1] = pos / map->size;
-	i = 0;
-	result_shift = 0;
-	while (i < 3)
+	s[0] = *pos % map->size;
+	s[1] = *pos / map->size;
+	i = -1;
+	shift[1] = 0;
+	while (++i < 3)
 	{
-		tmp = 0;
-		point[0] = s[0] + (tetr[i] % map->size) + (map->size * (tetr[i] < 0));
-		point[1] = s[1] + (tetr[i] / map->size) - (tetr[i] < 0);
-		if (point[0] < 0 || point[1] >= map->size)
+		shift[0] = 0;
+		p[0] = s[0] + (tetr[i] % map->size) + (map->size * (tetr[i] < 0));
+		p[1] = s[1] + (tetr[i] / map->size) - (tetr[i] < 0);
+		if (p[1] >= map->size)
 			return (-1);
-		if (point[1] < 0 || point[0] >= map->size)
-			tmp = (s[1] - (point[1] < 0 ? point[1] : -1)) * map->size - pos;
-		if (!tmp && map->map[(point[0] + point[1] * map->size)] != '.')
-			return (1);
-		if (tmp > result_shift)
-			result_shift = tmp;
-		i++;
+		if (p[1] < 0 || p[0] >= map->size)
+			shift[0] = (s[1] - (p[1] < 0 ? p[1] : -1)) * map->size - *pos;
+		if (!shift[0] && map->map[(p[0] + p[1] * map->size)] != '.')
+			return (0);
+		if (shift[0] > shift[1])
+			shift[1] = shift[0];
 	}
-	return (result_shift);
+	*pos += shift[1] ? (shift[1] - 1) : 0;
+	return (shift[1] == 0);
 }
 
-static void		set_figure(t_map *map, int pos, char *figure, char ch)
+static void		set_tetr_to_map(const t_map *map, int pos, char *tetr, char ch)
 {
 	map->map[pos] = ch;
-	map->map[pos + figure[0]] = ch;
-	map->map[pos + figure[1]] = ch;
-	map->map[pos + figure[2]] = ch;
+	map->map[pos + tetr[0]] = ch;
+	map->map[pos + tetr[1]] = ch;
+	map->map[pos + tetr[2]] = ch;
 }
 
 int				find_result(t_map *map, t_figures *data, long long used)
@@ -56,9 +55,7 @@ int				find_result(t_map *map, t_figures *data, long long used)
 	int		pos;
 	int		cur_tet;
 
-	if (used == (0xFFFFFFFF >> (32 - data->count)))
-		return (1);
-	cur_tet = -1;
+	cur_tet = ((used == (0xFFFFFFFF >> (32 - data->count))) ? 0xFF : 0) - 1;
 	while (++cur_tet < data->count)
 	{
 		if (((used >> cur_tet) & 1) != 0)
@@ -66,21 +63,45 @@ int				find_result(t_map *map, t_figures *data, long long used)
 		pos = -1;
 		while (++pos < (map->size * map->size))
 		{
-			if (map->map[pos] != '.')
+			if (map->map[pos] != '.'
+			|| !(res = check_tetr_to_map(map, &pos, data->figures[cur_tet])))
 				continue;
-			if ((res = check_figure_to_map(map, pos, data->figures[cur_tet])))
-			{
-				if (res > 0)
-				{
-					pos += res - 1;
-					continue;
-				}
+			if (res < 0)
 				break ;
-			}
-			set_figure(map, pos, data->figures[cur_tet], ('A' + cur_tet));
+			set_tetr_to_map(map, pos, data->figures[cur_tet], ('A' + cur_tet));
 			if (find_result(map, data, used | (1 << cur_tet)))
 				return (1);
-			set_figure(map, pos, data->figures[cur_tet], '.');
+			set_tetr_to_map(map, pos, data->figures[cur_tet], '.');
+		}
+	}
+	return (cur_tet == 0xFF);
+}
+
+int				fillit(char *filename)
+{
+	t_figures	figures;
+	t_map		map;
+	int			res;
+
+	if (filename)
+	{
+		if (validation(filename, &figures, &(map.size)) > 0)
+		{
+			map.map = ft_strnew(map.size * map.size);
+			ft_memset(map.map, '.', map.size * map.size);
+			while ((res = find_result(&map, &figures, 0)) == 0)
+			{
+				map.size++;
+				free(map.map);
+				map.map = ft_strnew(map.size * map.size);
+				ft_memset(map.map, '.', map.size * map.size);
+				resize_shifts(&figures, map.size - 1, map.size);
+			}
+			if (res)
+			{
+				show_result(&map);
+				return (1);
+			}
 		}
 	}
 	return (0);

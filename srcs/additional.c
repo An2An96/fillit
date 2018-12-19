@@ -6,13 +6,13 @@
 /*   By: rschuppe <rschuppe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 21:01:35 by rschuppe          #+#    #+#             */
-/*   Updated: 2018/12/18 21:13:11 by rschuppe         ###   ########.fr       */
+/*   Updated: 2018/12/19 13:57:37 by rschuppe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int	getmapsize(int terms)
+int		getmapsize(int terms)
 {
 	int	i;
 
@@ -21,7 +21,6 @@ int	getmapsize(int terms)
 		i++;
 	return (i);
 }
-
 
 void	resize_shifts(t_figures *figures, int old_size, int new_size)
 {
@@ -52,11 +51,11 @@ void	resize_shifts(t_figures *figures, int old_size, int new_size)
 	}
 }
 
-void	show_result(int result, const t_map *map)
+void	show_result(const t_map *map)
 {
 	int i;
 
-	if (map && result)
+	if (map)
 	{
 		i = 0;
 		while (map->map[i])
@@ -66,6 +65,4 @@ void	show_result(int result, const t_map *map)
 				ft_putchar('\n');
 		}
 	}
-	else
-		ft_putstr("error");
 }
